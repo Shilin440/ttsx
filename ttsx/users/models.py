@@ -1,24 +1,25 @@
 from django.db import models
 
-# Create your models here.
-
 
 class UserModel(models.Model):
-    username = models.CharField(max_length=32, unique=True)  # 名称
-    password = models.CharField(max_length=256)   #  密码
-    email = models.CharField(max_length=64, unique=True)  # 邮箱
-    # False 代表女
-    sex = models.BooleanField(default=False)  # 性别
-    is_delete = models.BooleanField(default=False)  # 是否删除
+    username = models.CharField(max_length=32, unique=True)      # 用户名
+    password = models.CharField(max_length=256)                  # 密码
+    password_c = models.CharField(max_length=256, default='')                # 确认密码
+    email = models.CharField(max_length=64, unique=True)         # 邮箱
+    recipients = models.CharField(max_length=10, default='')     # 收件人姓名
+    phone = models.CharField(max_length=11, default='')          # 收件人电话
+    addressee_p = models.CharField(max_length=6, default='')     # 收件人邮编
+    direction = models.CharField(max_length=100, default='')     # 收件人地址
 
     class Meta:
         db_table = 'ttsx_users'
 
 
+# 创建用户Ticket模型
 class UserTicketModel(models.Model):
-    user = models.ForeignKey(UserModel)  # 关联用户
-    ticket = models.CharField(max_length=256)   # 密码
-    out_time = models.DateTimeField()  # 过期时间
+    user = models.ForeignKey(UserModel)        # 关联用户模型
+    ticket = models.CharField(max_length=256)  # 密码
+    out_time = models.DateTimeField()          # 过期时间
 
     class Meta:
         db_table = 'ttsx_users_ticket'
